@@ -3,51 +3,49 @@
 
 import * as React from 'react'
 
-function Name({name, onNameChange}) {
+function Name() {
+  console.log('   😎 name renders')
+  const [name, setName] = React.useState('')
   return (
     <div>
       <label htmlFor="name">Name: </label>
-      <input id="name" value={name} onChange={onNameChange} />
-    </div>
-  )
-}
-
-// 🐨 accept `animal` and `onAnimalChange` props to this component
-function FavoriteAnimal() {
-  // 💣 delete this, it's now managed by the App
-  const [animal, setAnimal] = React.useState('')
-  return (
-    <div>
-      <label htmlFor="animal">Favorite Animal: </label>
       <input
-        id="animal"
-        value={animal}
-        onChange={event => setAnimal(event.target.value)}
+        id="name"
+        value={name}
+        onChange={event => setName(event.target.value)}
       />
     </div>
   )
 }
 
-// 🐨 uncomment this
-// function Display({name, animal}) {
-//   return <div>{`Hey ${name}, your favorite animal is: ${animal}!`}</div>
-// }
+function FavoriteAnimal() {
+  console.log('   🐱 animal renders')
+  const [animal, setAnimal] = React.useState('')
+  return (
+    <>
+      <div>
+        <label htmlFor="animal">Favorite Animal: </label>
+        <input
+          id="animal"
+          value={animal}
+          onChange={event => setAnimal(event.target.value)}
+        />
+      </div>
+      <Display animal={animal} />
+    </>
+  )
+}
 
-// 💣 remove this component in favor of the new one
-function Display({name}) {
-  return <div>{`Hey ${name}, you are great!`}</div>
+function Display({animal}) {
+  return <div>{`Your favorite animal is: ${animal}!`}</div>
 }
 
 function App() {
-  // 🐨 add a useState for the animal
-  const [name, setName] = React.useState('')
+  console.log('💻 app rerendered...')
   return (
     <form>
-      <Name name={name} onNameChange={event => setName(event.target.value)} />
-      {/* 🐨 pass the animal and onAnimalChange prop here (similar to the Name component above) */}
+      <Name />
       <FavoriteAnimal />
-      {/* 🐨 pass the animal prop here */}
-      <Display name={name} />
     </form>
   )
 }
